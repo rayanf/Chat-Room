@@ -1,0 +1,75 @@
+<html>
+<script>
+function reload() {
+    location.reload();
+      }
+function grade_alert() {
+    alert("insert the grade");
+}
+
+</script>
+
+
+  <title>{{ title }}</title>
+  <button type="button" name="button" onclick="window.location.href = 'http://127.0.0.1:8000/users/logout'">logout</button>
+
+  <fieldset style="width : 200px">
+    <legend> {{h_dict.name}} </legend>
+  <ul>
+    {% for u in contacts_Users %}
+      <li>
+          <a href="/chat/{{u.id}}">
+          {{u.username}}
+          </a>
+      </li>
+    {% endfor %}
+  </ul>
+</fieldset>
+  <br><br><br><br>
+  &ensp; <button type="button" name="button" onclick="window.location.href = 'http://127.0.0.1:8000/chat'">chat</button>
+
+{{error}}<br>
+  <form action="/users/list" name="inputuser" target="_self" style="width: 230px">
+    <fieldset>
+      <legend>add contact:</legend>
+
+    <label for="add_contact">usename</label> <br>
+    &emsp; <input type="text" name="username_add" value="" id="add_contact">
+    <br><br>
+
+
+    &emsp; &nbsp; <input type="submit" value="add user">
+      </fieldset>
+    </form>
+
+
+
+
+
+
+    <form  action="/users/list" style="width: 230px">
+      <fieldset>
+        <legend>remove contact:</legend>
+
+      <label for="del_contact">username</label> <br>
+      &emsp;<input type="text" name="del_contact" id="del_contact"><br>
+      <br><br>
+       &emsp; &nbsp;<input type="submit" name="delete" value="delete user">
+      </fieldset>
+    </form>
+
+
+
+
+
+    <button type="button" name="button" onclick="window.location.href = 'http://127.0.0.1:8000/users/edit'">click to reload</button>
+
+    {% if check_grade == 0 %}
+      <script>
+      //  grade_alert();
+
+      </script>
+    {% endif %}
+
+
+</html>

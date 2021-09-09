@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>creat</title>
+  </head>
+  <body>
+    <button type="button" name="button" onclick="window.location.href = 'http://127.0.0.1:8000/users/logout'">logout</button>
+
+    &ensp; <button type="button" name="button" onclick="window.location.href = 'http://127.0.0.1:8000/chat'">chat</button>
+
+          <fieldset style="width : 200px">
+            <legend>contacts</legend>
+            <ul>
+              {% for u in contacts_Users %}
+                <li>
+                  <a href="/users/gp/editgps/{{current_gp_id}}/{{u.id}}">
+                    {{u.username}}
+                  </a>
+                </li>
+              {% endfor %}
+            </ul>
+          </fieldset>
+          <fieldset style="width : 200px">
+            <legend>edit group</legend>
+            <ul>
+              {% for g in my_gps %}
+              <li>
+                <a href="/users/gp/editgps/{{g.id}}">
+                {{g.name}}</a>
+              </li>
+              {% endfor %}
+            </ul>
+          </fieldset>
+
+
+            <fieldset  style="width: 200px">
+              <legend>edit member of gp</legend>
+                <input type="text" name="edit_members" value="{{edit_member_gp}}">
+                <ul>
+                  {% for m in current_gp_members%}
+                  <li>
+                    <a href="#"></a>
+                    {{m.get_fullname}}
+                  </li>
+                  {% endfor %}
+                </ul>
+
+            </fieldset>
+
+
+          <form action="/users/gp/creatgp"  style="width: 230px" method="post">{% csrf_token %}
+            <fieldset>
+              <legend>Creat gp</legend>
+                <label for="new_gp_name">name:</label><br>
+                <input type="text" name="new_gp_name" value="" id='new_gp_name'><br><br>
+                <input type="submit" name="" value="creat">
+            </fieldset>
+          </form>
+
+  </body>
+</html>
+
+
+ba kilik br rooye hr contct ezafe shvd va ba zdn rooye on hzf shvd

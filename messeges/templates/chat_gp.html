@@ -1,0 +1,106 @@
+<html>
+  <head>
+    <title>chat page</title>
+    <style media="screen">
+      #users_list{
+        float: left;
+        width: 50%;
+
+      }
+      #pms{
+        width: 45%;
+        float: right;
+
+      }
+      .send_receiv_er{
+        float: left;
+        width: 50%;
+      }
+      #sender_pm {
+        direction: rtl;
+        width: 70%;
+        float: right;
+      }
+      #receiver_pm{
+        direction: ltr;
+        width: 70%;
+        float: left;
+      }
+    </style>
+  </head>
+  <body >
+    <h4 style="width:200px;">{{ sender_getfullname}}</h4>
+        <button type="button" name="button" onclick="window.location.href = 'http://127.0.0.1:8000/users/logout'">logout</button>
+    <br><br>
+  <div id ="users_list">
+    <div style="width : 80%">
+      <fieldset>
+        <legend>Contacts</legend>
+        <ul>
+          {% for u in contacts_Users %}
+            <li>
+                <a href="/chat/{{u.id}}">
+                {{u.get_fullname}}
+                </a>
+            </li>
+          {% endfor %}
+          {% for g in gps %}
+            <li>
+              <a href="/chat/gp/{{g.id}}">
+                {{g.name}} (gp)
+              </a>
+            </li>
+          {% endfor %}
+        </ul>
+    </fieldset>
+
+  </div><br>
+    &ensp; <button type="button" name="button" onclick="window.location.href = 'http://127.0.0.1:8000/users/list'">edit contact</button>
+    &ensp; <button type="button" name="button" onclick="window.location.href = 'http://127.0.0.1:8000/users/gp/editgps'">edit gps</button>
+
+
+    <br><br><br>
+    <div class="">
+        <form action="/chat/gp/massage/new" method="post" style="width : 80%"> {% csrf_token %}
+          <fieldset>
+            <legend>Send Message</legend>
+          <textarea name="text" rows="6" cols="30"></textarea> <br><br>
+          To:
+          <input type="text" name="current_gp" value="{{current_gp}}"> <br><br>
+          <input type="hidden" name="current_gph" value="{{current_gp_id}}">
+          <input type="submit" name="send" value="send massage">
+
+        </fieldset>
+        </form>
+        {% if send_cheker == 1 %}
+          <h3> sent. </h3>
+
+        {% endif %}
+        {% if send_cheker == 2 %}
+          <h3> please onclick receiver </h3>
+
+        {% endif %}
+      </div>
+  </div>
+</dive>
+    <div id="pms">
+      {% if current_gp_admin == sender_id %}
+      <form class="" action="/users/gp/deletegp" method="POST">{% csrf_token %}
+        <input type="hidden" name=delgp"" value="{{current_gp_id}}">
+        <input type="submit" name="delete" value="delete gp">
+      </form>
+      {% endif %}
+      {% for m in massages %}
+        {% if m.sender.id == sender_id %}
+          <div id="sender_pm"><br>
+            {{m.text}} &ensp;
+          </div>
+        {% else %}
+          <div id="receiver_pm"> <br>
+          {{m.sender.get_fullname}}&ensp; {{m.text}}
+          </div>
+        {% endif %}
+        {% endfor %}
+    </div>
+  </body>
+</html>
