@@ -1,0 +1,24 @@
+#users_list{
+    float: left;
+    width: 50%;
+
+  }
+  #pms{
+    width: 45%;
+    float: right;
+
+  }
+  .send_receiv_er{
+    float: left;
+    width: 50%;
+  }
+  #sender_pm {
+    direction: rtl;
+    width: 70%;
+    float: right;
+  }
+  #receiver_pm{
+    direction: ltr;
+    width: 70%;
+    float: left;
+  }
